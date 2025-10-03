@@ -1,0 +1,9 @@
+/*CREATE SCHEMA `avaliacao` DEFAULT CHARACTER SET utf8mb3 ;*/
+
+CREATE TABLE `avaliacao`.`todo` (
+  `id` INT AUTO_INCREMENT,
+  `titulo` VARCHAR(120) NOT NULL,
+  `feito` TINYINT(1) NOT NULL DEFAULT 0,
+  `criado_em` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
