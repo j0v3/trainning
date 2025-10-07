@@ -9,6 +9,4 @@ $dbd = new PDO($dsn,$user,$pass);
 
 } catch(PDOException $e){ echo $e;}
 
-print_r($_SERVER['REQUEST_METHOD'])
-
 ?>
