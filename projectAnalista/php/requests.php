@@ -40,20 +40,20 @@ function requiPOST($titulo, $feito, $lod)
 }
 ;
 
-/*if($_SERVER['REQUEST_METHOD'] === 'GET'){
+if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
-    requiGET();
+    requiGET($lod = $dbh);
 
 } elseif($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
     try{
 
-       requiPOST();
+       requiPOST($titulo, $feito, $lod);
 
     }
     catch(PDOException $e){echo $e;};
 
-};*/
+};
 
 requiPOST('teste2', 0, $dbd);
 

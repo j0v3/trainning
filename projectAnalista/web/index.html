@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Script</title>
 </head>
-<body>
 
+<body>
+    <form action="../php/requests.php" method="post"></form>
+
+    <label for="titulo">Titulo: </label>    
+    <input type="text" name="titulo" id="titulo" placeholder="digite a tarefa">
+    <label for="feito">Feito: </label>
+    <input type="number" name="feito" id="feito" min="0" max="1" value="0" placeholder="Digite a situação">
+    <button id="buttonDB">Enviar ao DB</button>
 
     <script src="script.js"></script>
 </body>
+
 </html>
