@@ -1,16 +1,17 @@
-let recNome = document.querySelector("#titulo");
+let recTitulo = document.querySelector("#titulo");
 let recFeito = document.querySelector("#feito");
 let botaClick = document.querySelector("#buttonDB");
+let mostraDados = document.querySelector("#mostraDados");
+let pegaDados = document.querySelector("#pegaDados");
 
 botaClick.addEventListener("click",()=>{
 
-   const dados = {nome:recNome.value, feito:recFeito.value};
+   const dados = {titulo:recTitulo.value, feito:recFeito.value};
    
    fetch('../php/requests.php', {
 
     method:'POST', 
     headers:{
-
         'Content-Type': 'application/json' }, 
         body: JSON.stringify(dados)
    }).then(response=>{
@@ -23,6 +24,10 @@ botaClick.addEventListener("click",()=>{
     console.log("Erro: ", error);
    })
 
-   
+});
+
+pegaDados.addEventListener("click",()=>{
+
+
 
 });

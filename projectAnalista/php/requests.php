@@ -1,6 +1,6 @@
 <?php
 
-require_once "config.php";
+include "config.php";
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -23,38 +23,35 @@ function requiPOST($titulo, $feito, $lod)
 {
 
     $semente = $lod->prepare("INSERT INTO todo (titulo, feito) VALUES (:titulo, :feito);");
+    
     $semente->bindParam(':titulo', $titulo);
-
-    switch ($feito) {
-        case "0":
-            $feito = 0;
-        case "1":
-            $feito = 1;
-        default:
-            $feito = 0;
-
-    }
-
     $semente->bindParam(':feito', $feito);
     $semente->execute();
 }
 ;
 
-if($_SERVER['REQUEST_METHOD'] === 'GET'){
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    requiGET($lod = $dbh);
+    requiGET($lod = $dbd);
 
-} elseif($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    try{
+    try {
+        
+        $data = json_decode(file_get_contents("php://input"),true);
+        requiPOST($titulo=$data['titulo'], $feito=$data['feito'], $dbd);
 
-       requiPOST($titulo, $feito, $lod);
+        http_response_code(201);
+        echo json_encode(["sucesso" => true,"mensagem"=>"criado com sucesso"]);
 
-    }
-    catch(PDOException $e){echo $e;};
+    } catch (PDOException $e) {
+       http_response_code(500); 
+       echo json_encode(["erro" => "Falha na base de dados: " . $e->getMessage()]);
+    };
 
+}else{
+    http_response_code(405); 
+    echo json_encode(["erro" => "Metodo nao permitido."]);
 };
-
-requiPOST('teste2', 0, $dbd);
 
 ?>
