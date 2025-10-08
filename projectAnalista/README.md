@@ -9,7 +9,7 @@ Olá, aqui se encontra o projeto para **Analista de Sistemas**, abaixo será pos
 * [🔨Execuções](README.md/#execuções)
     * [📊Banco de Dados(*MySQL*)](README.md/#banco-de-dadosmysql)
     * [🐘PHP](README.md/#php)
-* [✏️Notas](README.md/#️notas)
+* [🖼️Funcionamento(Imagens)](README.md/#️funcionamentoimagens)
 ---
 
 |Categoria|Badge|
@@ -82,17 +82,30 @@ O comando acima, assim como todos os outros encontrados na [pasta sql](/projectA
 ![Exemplo do mysql ativo no Terminal](/projectAnalista/documents/imgs/mysql%20ativo%20terminal.png)
 
 ### 🐘PHP
-No caso do **PHP**, além de escrever os códigos, que podem ser copiados da [pasta]() específica, é necessário executar um comando, seja no terminal do sistema ou no terminal do VSCode^[^3]^ :
+No caso do **PHP**, além de escrever os códigos, que podem ser copiados da [pasta]() específica, é necessário executar um comando, seja no terminal do sistema ou no terminal do VSCode [^3] :
 
 ```bash
 php -S localhost:8000
 ```
 
-O Comando acima irá executar o servidor embutido do PHP, permitido assim que o PHP seja executado, funcionando semelhante a um servidor, isso também permitirá que as requisições sejam possíveis.
+O Comando acima irá executar o **servidor embutido do PHP**, permitido assim que o PHP seja executado, funcionando semelhante a um servidor, isso também permitirá que as requisições sejam possíveis.
 
 ---
 
-## ✏️Notas
-* [^1]: Baseado na documentação Oficial.
-* [^2]: Caso seja super usuário( *sudo* ).
-* [^3]: Caso ele seja utitlizado
+## 🖼️Funcionamento(Imagens)
+Nessa sessão é possível visualizar algumas **imagens do projeto em funcionamento** local. Um [video](/projectAnalista/documents/) mostrando o funcionamento está disponível na [pasta documents](/projectAnalista/documents/).
+
+Abaixo será apresentado na seguinte ordem o projeto em funcionamento:
+1. Interface do projeto
+2. Projeto exibindo dados
+3. Inserção de dados
+4. Nova exibição de dados atualizados
+
+![Interface do Projeto na Web](/projectAnalista/documents/imgs/interface%20do%20projeto%20na%20web.png)
+![Projeto exibindo dados](/projectAnalista/documents/imgs/interface%20exibe%20dados.png)
+![Insercao de dados](/projectAnalista/documents/imgs/interface%20insercao%20de%20dados.png)
+![Nova exibição de dados atualizados](/projectAnalista/documents/imgs/interface%20exibe%20novos%20dados.png)
+
+[^1]: Baseado na documentação Oficial.
+[^2]: Caso seja super usuário( *sudo* ).
+[^3]: Caso ele seja utitlizado
