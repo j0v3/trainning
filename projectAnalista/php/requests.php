@@ -23,7 +23,7 @@ function requiPOST($titulo, $feito, $lod)
 {
 
     $semente = $lod->prepare("INSERT INTO todo (titulo, feito) VALUES (:titulo, :feito);");
-    
+
     $semente->bindParam(':titulo', $titulo);
     $semente->bindParam(':feito', $feito);
     $semente->execute();
@@ -32,7 +32,13 @@ function requiPOST($titulo, $feito, $lod)
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    requiGET($lod = $dbd);
+    try{
+        requiGET($lod = $dbd);
+        http_response_code(200);
+    }catch(PDOException $e){
+        http_response_code(500);
+        echo json_encode(["erro" => "Erro de leitura do banco de dados: ".$e->getMessage()]);
+    }
 
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -53,5 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     http_response_code(405); 
     echo json_encode(["erro" => "Metodo nao permitido."]);
 };
+
 
 ?>

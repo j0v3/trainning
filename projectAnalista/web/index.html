@@ -5,24 +5,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Script</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            background-color: aquamarine;
+            min-width: 40%;
+
+            border-radius: 30px;
+        }
+
+        form {
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+        span label {
+
+            display: none;
+        }
+
+        #span1 {
+
+            background-color: azure;
+            width: 300px;
+            padding: 10px;
+
+            text-align: center;
+            border-radius: 10px;
+
+        }
+
+        input {
+
+            min-width: 300px;
+            border: 0;
+            border-radius: 7px;
+
+            text-align: center;
+
+            padding: 10px;
+
+        }
+
+        button {
+
+            border-radius: 5px;
+            border: 0px;
+
+            padding: 10px;
+
+            width: 150px;
+
+            &:hover {
+
+                transform: scale(1.05);
+                cursor: pointer;
+                box-shadow: 0px 0px 2px 1px;
+
+            }
+
+        }
+
+        .tabelaDados {
+
+            border: 1px solid black;
+            text-align: justify;
+            letter-spacing: 1px;
+            padding: 10px;
+            margin: 5px;
+
+            width: 70%;
+
+            border-radius:10px;
+
+        }
+
+        thead{
+            text-align: justify;
+            
+
+        }
+
+        tr{
+
+            background-color: rgb(213, 213, 213);
+            border: 1px solid black;
+
+        }
+
+    </style>
 </head>
 
 <body>
-    <form action="" method="post">
+    <div id="container">
 
-        <label for="titulo">Titulo: </label>    
-    <input type="text" name="titulo" id="titulo" placeholder="digite a tarefa">
-    <label for="feito">Feito: </label>
-    <input type="number" name="feito" id="feito" min="0" max="1" value="0" placeholder="Digite a situação">
-    <button id="buttonDB" type="button">Enviar ao DB</button>
+        <h1>Inserir e Consultar Dados</h1>
+        <form action="" method="post">
+            <span id="span1">Se 0, então Incompleto❌ <br> Se 1, então Completo✅</span>
+            <br>
 
-    </form>
+            <span>
 
-    <br/>
+                <label for="titulo">Titulo: </label>
+                <input type="text" name="titulo" id="titulo" placeholder="Defina uma tarefa">
+            </span>
+            <br>
+            <span>
 
-    <button id="pegaDados">Atualizar Dados</button>
-    <h2>No Banco de Dados</h2>
-    <div id="mostraDados"></div>
+                <label for="feito">Feito?: </label>
+                <input type="number" name="feito" id="feito" min="0" max="1" value="0" placeholder="Digite a situação">
+
+            </span>
+            <br>
+
+            <button id="buttonDB" type="button">Enviar ao DB</button>
+
+        </form>
+
+        <br />
+
+        <button id="pegaDados">Mostrar Dados no DB</button>
+        <h2>No Banco de Dados ⬇️</h2>
+        <table class="tabelaDados">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>TITULO</td>
+                    <td>CRIAÇÃO</td>
+                </tr>
+            </thead>
+            <tbody id="mostraDados"></tbody>
+        </table>
+
+    </div>
+
 
     <script src="script.js"></script>
 </body>

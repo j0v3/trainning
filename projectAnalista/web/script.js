@@ -26,8 +26,27 @@ botaClick.addEventListener("click",()=>{
 
 });
 
-pegaDados.addEventListener("click",()=>{
+function listaDDados(tarefas){
+    return `<tr class="trTable"><td>${tarefas.id}</td><td>${tarefas.titulo}</td><td>${tarefas.criado_em}</td></tr>`;
 
+};
 
+pegaDados.addEventListener("click",async ()=>{
 
+    try{
+        const resposta = await fetch('../php/requests.php',{
+
+            method: 'GET' });
+
+        const lista = await resposta.json();
+
+        const container = mostraDados;
+        const nova = lista.map(listaDDados);
+
+        container.innerHTML = nova.join('');
+
+    }catch(error){
+        console.error("Falha ao buscar dados", error);
+    };
+    
 });
