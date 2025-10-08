@@ -5,7 +5,7 @@ Olá, aqui se encontra o projeto para **Analista de Sistemas**, abaixo será pos
 ## Guia
 * [📝Instruções](README.md/#instruções)
     * [Instalar o MySQL Server](README.md/#instalar-o-mysql-server) 
-    *
+    * [Instalar o PHP + Extensões](README.md/#instalar-o-php--extensões)
 ---
 
 |Categoria|Badge|
@@ -24,7 +24,7 @@ Olá, aqui se encontra o projeto para **Analista de Sistemas**, abaixo será pos
 Para se executar o projeto é necessário ter as ferramentas e linguagens instaladas no dispositivo, **supondo que o VSCode esteja instalado**, o processo será o seguinte:
 
 1. [Instalar o MySQL Server](README.md/#instalar-o-mysql-server)
-2. [Instalar o PHP + Extensões necessárias](README.md/#instalar-o-php--extensões)
+2. [Instalar o PHP + Extensões](README.md/#instalar-o-php--extensões)
 
 ### Instalar o MySQL Server
 Utilizando o linux é necessário prosseguir com comandos simples para se **instalar o MySQL**, o comando que deve ser dado no terminal com permissões de superusuário é: **`sudo apt-get install mysql-server`** (*baseado na documentação oficial*).
@@ -32,4 +32,16 @@ Utilizando o linux é necessário prosseguir com comandos simples para se **inst
 Se tudo ocorrer bem, o MySQL Server será instalado no seu computador, um ponto importante é, caso seus repositórios não estejam atualizados, ou não saiba se está, é recomendado que você o atualize utilizando o seguinte comando: **`sudo apt update`**, isso **deve ser feito antes de instalar o mysql**.
 
 ### Instalar o PHP + Extensões
+Para se instalar o PHP o comando é semelhante, com base na documentação oficial, os comandos são os seguintes: [^1]
 
+<code> 
+    
+     # Update the package lists.
+    sudo apt update
+
+    # Install PHP.
+    sudo apt install -y php 
+    
+</code>
+
+[^1]: Baseado na documentação Oficial.
