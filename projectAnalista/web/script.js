@@ -3,6 +3,7 @@ let recFeito = document.querySelector("#feito");
 let botaClick = document.querySelector("#buttonDB");
 let mostraDados = document.querySelector("#mostraDados");
 let pegaDados = document.querySelector("#pegaDados");
+let formInput = document.getElementById("formInput");
 
 botaClick.addEventListener("click",()=>{
 
@@ -22,7 +23,10 @@ botaClick.addEventListener("click",()=>{
 
    }).then(data=> {console.log("Resposta do Servidor: ", data);}).catch(error=>{
     console.log("Erro: ", error);
-   })
+   });
+
+   formInput.reset();
+   recTitulo.focus();
 
 });
 
