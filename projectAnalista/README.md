@@ -1,6 +1,12 @@
 # 🧑‍💻projectAnalista
 
-Olá, este é o projeto para Analista de Sistema, abaixo será possível encontrar mais informações sobre.
+Olá, aqui se encontra o projeto para **Analista de Sistemas**, abaixo será possível encontrar mais informações.
+
+## Guia
+* [📝Instruções](README.md/#instruções)
+    * [Instalar o MySQL Server](README.md/#instalar-o-mysql-server) 
+    *
+---
 
 |Categoria|Badge|
 |---|---|
@@ -13,9 +19,17 @@ Olá, este é o projeto para Analista de Sistema, abaixo será possível encontr
 ## 📝Instruções
 
 >### 💡Lembrete
->O processo foi feito utilizando o Windows com WSL, a distribuição foi o **Ubuntu 22.04 LTS**, é possível realizar um passo a passo semelhante ao utilizar somente o **Windows**, porém o processo pode ser mais demorado.
+>O processo foi feito utilizando o **Windows com WSL**, a distribuição foi o **Ubuntu 22.04 LTS**, é possível realizar um passo a passo semelhante ao utilizar somente o **Windows**, porém o processo pode ser mais demorado(*a configuração ou instalação*).
 
 Para se executar o projeto é necessário ter as ferramentas e linguagens instaladas no dispositivo, **supondo que o VSCode esteja instalado**, o processo será o seguinte:
 
-1. Instalar o MySQL Server
-2. Instalar o PHP + Extensões necessárias
+1. [Instalar o MySQL Server](README.md/#instalar-o-mysql-server)
+2. [Instalar o PHP + Extensões necessárias](README.md/#instalar-o-php--extensões)
+
+### Instalar o MySQL Server
+Utilizando o linux é necessário prosseguir com comandos simples para se **instalar o MySQL**, o comando que deve ser dado no terminal com permissões de superusuário é: **`sudo apt-get install mysql-server`** (*baseado na documentação oficial*).
+
+Se tudo ocorrer bem, o MySQL Server será instalado no seu computador, um ponto importante é, caso seus repositórios não estejam atualizados, ou não saiba se está, é recomendado que você o atualize utilizando o seguinte comando: **`sudo apt update`**, isso **deve ser feito antes de instalar o mysql**.
+
+### Instalar o PHP + Extensões
+
