@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peça sua Pizza</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <form action="">
+
+        <fieldset>
+
+            <legend>Detalhes do Cliente</legend>
+
+            <ul class="blocoForm">
+
+                <li>
+
+                    <label for="nam">Nome</label>
+                    <input id="nam" type="text" name="name" required>
+
+                </li>
+                <li>
+
+                    <label for="tele">Telefone</label>
+                    <input type="tel" id="tele" name="telefone" required>
+
+                </li>
+                <li>
+
+                    <label for="email">eMail</label>
+                    <input type="mail" name="email" id="email">
+
+                </li>
+
+            </ul>
+
+
+            <fieldset>
+                <legend>Endereço de Entrega</legend>
+
+                <label for="rua" name="rua">Rua</label>
+                <input id="rua" type="text" name="rua" required>
+
+                <label for="bairro" name="bairro">Bairro</label>
+                <input id="bairro" type="text" name="bairro" required>
+
+                <label for="numero">Número Casa</label>
+                <input id="numero" name="numeroCasa" type="number" required>
+
+                <label for="complemento">Complemento</label>
+                <input id="complemento" name="complemento" type="text">
+            </fieldset>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Construa sua Pizza</legend>
+
+            <label for="tamanhoPizza">Tamanho da Pizza</label>
+            <select name="pizzaTamanho" id="tamanhoPizza" required>
+
+                <option value="pequena">Pequena</option>
+                <option value="media">Média</option>
+                <option value="grande">Grande</option>
+                <option value="familia" selected>Familia</option>
+                <option value="extraGrande">Extra Grande</option>
+
+            </select>
+
+            <fieldset>
+
+                <legend>Tipo de Massa</legend>
+
+                <input type="radio" name="massa" value="fina" id="fina">
+                <label for="fina">Fina</label>
+
+                <input type="radio" name="massa" value="grossa" id="grossa">
+                <label for="grossa">Grossa</label>
+
+                <input type="radio" name="massa" value="tradicional" id="tradicional" checked>
+                <label for="tradicional">Tradicional</label>
+
+                <input type="radio" name="massa" value="integral" id="integral">
+                <label for="integral">Integral</label>
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Sabores</legend>
+
+                <span><input type="checkbox" name="sabor" id="mussarela" value="mussarela">
+                    <label for="mussarela">Mussarela</label></span>
+
+                <input type="checkbox" name="sabor" id="calabresa" value="calabresa">
+                <label for="calabresa">Calabresa</label>
+
+                <input type="checkbox" name="sabor" id="frango" value="frango">
+                <label for="frango">Frango</label>
+
+                <input type="checkbox" name="sabor" id="camarao" value="camarao">
+                <label for="camarao">Camarao</label>
+
+                <input type="checkbox" name="sabor" id="queijos4" value="4queijos">
+                <label for="queijos4">4 Queijos</label>
+
+                <input type="checkbox" name="sabor" id="chocolate" value="chocolate">
+                <label for="chocolate">Chocolate</label>
+
+                <p><strong>Observação:</strong> Caso mais de um sabor seja escolhido, a pizza virá
+                    meio a meio!</p>
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Borda</legend>
+
+                <input type="radio" name="borda" id="nao" value="nao" checked>
+                <label for="nao">Não</label>
+
+                <input type="radio" name="borda" id="cheddar" value="cheddar">
+                <label for="cheddar">Cheddar</label>
+
+                <input type="radio" name="borda" id="catupiry" value="catupiry">
+                <label for="catupiry">Catupiry</label>
+
+            </fieldset>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>Outras Opções</legend>
+
+            <fieldset>
+
+                <legend>Bebidas</legend>
+
+                <label for="coca">Coca-Cola 1 Litro - R$ 0,00</label>
+                <input type="number" value="0" name="bebidas" id="coca" min="0">
+
+                <label for="coca">Guaraná 1 Litro - R$ 0,00</label>
+                <input type="number" value="0" name="bebidas" id="coca" min="0">
+
+                <label for="coca">Latinha Coca-Cola 500ml - R$ 0,00</label>
+                <input type="number" value="0" name="bebidas" id="coca" min="0">
+
+                <label for="coca">Latinha Guaraná 500ml - R$ 0,00</label>
+                <input type="number" value="0" name="bebidas" id="coca" min="0">
+
+            </fieldset>
+
+            <fieldset>
+
+                <legend>Forma de Pagamento</legend>
+
+                <select name="pagamento" id="pagamentoMeio">
+
+                    <option value="cartãoD">Cartão Débito</option>
+                    <option value="cartãoC">Cartão Crédito</option>
+                    <option value="pix" selected>Pix</option>
+                    <option value="dinheiro">Dinheiro</option>
+
+                </select>
+
+                <fieldset>
+
+                    <legend>Será necessário troco?</legend>
+
+                    <input type="radio" name="troco" id="simTroco" value="sim">
+                    <label for="simTroco">Sim</label>
+
+                    <input type="radio" name="troco" id="naoTroco" value="nao" checked>
+                    <label for="naoTroco">Não</label>
+
+                </fieldset>
+                <input type="checkbox" name="termos" id="termos" required>
+                <label for="termos">Você Concorda com os <a href="">Nossos Termos</a>?</label>
+            </fieldset>
+
+        </fieldset>
+
+        <button type="submit">Fazer Pedido</button>
+        <button type="reset">Apagar Tudo</button>
+
+    </form>
+
+</body>
+
+</html>

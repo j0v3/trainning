@@ -1,0 +1,54 @@
+fieldset{
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+
+
+input[type="number"]{
+
+    width: 30px;
+
+}
+
+input[type="checkbox"], label{
+
+    width: fit-content;
+
+    display: inline;
+
+}
+
+.blocoForm{
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    list-style: none;
+
+    padding: 0;
+
+    width:fit-content;
+
+}
+
+.blocoForm li{
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+

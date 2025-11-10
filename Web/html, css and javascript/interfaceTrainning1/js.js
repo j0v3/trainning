@@ -40,3 +40,11 @@ c.addEventListener("click", ()=>{
     ab.classList.remove("active");
 
 });
+
+function ActiveInitial(){
+
+    a.click();
+
+};
+
+ActiveInitial();
