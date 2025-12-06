@@ -1,0 +1,48 @@
+@keyframes moveAndColor {
+    0% {
+      transform: translateX(0) rotate(0deg);
+      background-color: #3498db;
+    }
+    20% {
+      transform: translateX(50%) translateY(100%) rotate(50deg) ;
+      background-color: #e67e22;
+    }
+    50% {
+      transform: translateX(0) rotate(360deg) translateZ(20deg);
+      background-color: #2ecc71;
+    }
+
+    100% {
+      transform: translateX(0) rotate(0deg);
+      background-color: #3498db;
+      transform: scaleY(1%);
+    }
+  }
+
+#a1,
+#a2,
+#a3,
+#a4 {
+  min-width: 100px;
+  height: 200px;
+  background-color: aquamarine;
+flex: 1 0 0;
+transition: transform 1s;
+animation: moveAndColor 3s ease-in-out infinite alternate;
+
+  
+&:hover{
+
+    transform: translateY(100%) translateX(40%);
+
+  }
+  
+}
+
+div {
+  display: flex;
+gap: 105px;
+  width: 200px;
+
+  
+}
