@@ -3,7 +3,7 @@ numBers = [x for x in range(301)]
 
 
 def comprehesion(listinput):
-    newList = [ x for x in listinput if x % 2 != 0 ]
+    newList = [ x for x in listinput if x % 2 != 0 ] #adiciona os impares
     return newList
 
 newist = []

@@ -1,0 +1,17 @@
+#cube{
+
+    width: 200px;
+    height: 200px;
+    background-color: aqua;
+    margin: 20px;
+    transition: 2s;
+
+}
+
+
+#cube.active{
+
+    background-color: black;
+    transform: translateX(500px) scale(3);
+
+}
