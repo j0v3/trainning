@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalForge - Editor Profissional</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Lora"', 'serif'],
+                    },
+                    colors: {
+                        indigo: { 600: '#4F46E5' },
+                        emerald: { 600: '#059669' },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Ajustes para Impressão/PDF */
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+            /* Remove margens extras na impressão nativa do browser */
+            @page { margin: 0; }
+        }
+        
+        /* Prevenção de quebra de página */
+        .avoid-break {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /* Tipografia Jurídica */
+        .legal-text {
+            text-align: justify;
+            text-justify: inter-word;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800 font-sans h-screen flex flex-col overflow-hidden">
+
+    <header class="flex-none bg-white border-b border-gray-200 z-50 no-print px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="bg-indigo-600 text-white p-2 rounded-lg">
+                <i class="fa-solid fa-file-contract text-lg"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-gray-900">LegalForge</h1>
+                <p class="text-xs text-gray-500">Editor de Contratos Dinâmicos</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-3">
+            <select id="modelSelector" onchange="loadModel()" class="bg-slate-50 border border-gray-200 text-sm rounded-lg p-2.5 focus:ring-indigo-500 focus:border-indigo-500 w-64">
+                <option value="servicos">Prestação de Serviços</option>
+                <option value="software">Licenciamento de Software</option>
+                <option value="nda">Acordo de Confidencialidade (NDA)</option>
+            </select>
+
+            <button onclick="generatePDF()" class="bg-slate-900 hover:bg-black text-white font-medium text-sm py-2.5 px-5 rounded-lg transition-all flex items-center gap-2">
+                <i class="fa-solid fa-download"></i> Baixar PDF
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow flex overflow-hidden">
+        
+        <aside class="w-1/3 min-w-[350px] max-w-[450px] bg-slate-50 border-r border-gray-200 overflow-y-auto p-6 no-print custom-scrollbar">
+            
+            <div class="space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-xs font-bold text-indigo-600 uppercase mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-user-tie"></i> Contratante
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1">Nome / Razão Social</label>
+                            <input type="text" id="input_contratante" oninput="updateContract()" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1">CPF / CNPJ</label>
+                            <input type="text" id="input_doc_contratante" oninput="updateContract()" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-xs font-bold text-emerald-600 uppercase mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase"></i> Contratado
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1">Nome / Razão Social</label>
+                            <input type="text" id="input_contratado" oninput="updateContract()" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1">CPF / CNPJ</label>
+                            <input type="text" id="input_doc_contratado" oninput="updateContract()" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-xs font-bold text-slate-600 uppercase mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders"></i> Variáveis
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1">Cidade (Data)</label>
+                            <input type="text" id="input_cidade" placeholder="Ex: São Paulo" oninput="updateContract()" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1">Objeto do Contrato</label>
+                            <textarea id="input_objeto" rows="3" oninput="updateContract()" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Valor (R$)</label>
+                                <input type="text" id="input_valor" placeholder="R$ 0,00" onkeyup="formatCurrency(this)" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Prazo</label>
+                                <input type="text" id="input_prazo" placeholder="Ex: 12 meses" oninput="updateContract()" class="w-full rounded border-gray-200 bg-gray-50 p-2 text-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center text-xs text-gray-400">
+                <p>Todas as alterações são aplicadas em tempo real.</p>
+            </div>
+        </aside>
+
+        <section class="flex-grow bg-white overflow-y-auto flex justify-center p-8 lg:p-12 relative">
+            
+            <div id="contractContent" class="w-full max-w-[210mm] text-gray-900">
+                <div id="documentBody" class="font-serif legal-text text-base leading-relaxed">
+                    </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        // --- 1. UTILITÁRIOS ---
+
+        // Função de Máscara de Moeda (BRL)
+        function formatCurrency(input) {
+            let value = input.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+            
+            if(value === '') {
+                input.value = '';
+                updateContract();
+                return;
+            }
+
+            value = (parseInt(value) / 100).toFixed(2) + '';
+            value = value.replace('.', ',');
+            value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            
+            input.value = 'R$ ' + value;
+            updateContract(); // Atualiza o contrato imediatamente
+        }
+
+        function getCurrentDateExtended() {
+            const cidade = document.getElementById('input_cidade').value || "Cidade";
+            const date = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return `${cidade}, ${date.toLocaleDateString('pt-BR', options)}`;
+        }
+
+        // --- 2. MODELOS (DATABASE) ---
+        const models = {
+            servicos: {
+                title: "CONTRATO DE PRESTAÇÃO DE SERVIÇOS",
+                clauses: [
+                    { t: "1. PARTES", c: "CONTRATANTE: <strong>[P_CONTRATANTE]</strong> (CNPJ/CPF: [P_DOC_CONTRATANTE]) e CONTRATADO: <strong>[P_CONTRATADO]</strong> (CNPJ/CPF: [P_DOC_CONTRATADO])." },
+                    { t: "2. OBJETO", c: "O objeto deste contrato é a prestação dos serviços de: [P_OBJETO]." },
+                    { t: "3. VALOR", c: "O serviço será remunerado pela quantia total de <strong>[P_VALOR]</strong>, a ser pago conforme combinado entre as partes." },
+                    { t: "4. PRAZO", c: "O contrato terá vigência de <strong>[P_PRAZO]</strong>, iniciando-se na data da assinatura." },
+                    { t: "5. CONFIDENCIALIDADE", c: "As partes obrigam-se a manter em sigilo todas as informações confidenciais trocadas durante a vigência deste contrato, em conformidade com a LGPD." },
+                    { t: "6. FORO", c: "Fica eleito o foro da Comarca de domicílio do CONTRATADO para dirimir quaisquer dúvidas oriundas deste contrato." }
+                ]
+            },
+            software: {
+                title: "LICENÇA DE USO DE SOFTWARE (SaaS)",
+                clauses: [
+                    { t: "1. LICENCIAMENTO", c: "A LICENCIANTE <strong>[P_CONTRATADO]</strong> concede ao LICENCIADO <strong>[P_CONTRATANTE]</strong> o direito de uso do software [P_OBJETO]." },
+                    { t: "2. MENSALIDADE", c: "Pela licença, o LICENCIADO pagará o valor recorrente de <strong>[P_VALOR]</strong>." },
+                    { t: "3. PROPRIEDADE", c: "O software é de propriedade exclusiva da LICENCIANTE. É vedada a cópia ou engenharia reversa." },
+                    { t: "4. DADOS", c: "A LICENCIANTE compromete-se a proteger os dados do LICENCIADO nos termos da lei vigente." }
+                ]
+            },
+            nda: {
+                title: "ACORDO DE CONFIDENCIALIDADE (NDA)",
+                clauses: [
+                    { t: "1. DEFINIÇÃO", c: "As partes <strong>[P_CONTRATANTE]</strong> e <strong>[P_CONTRATADO]</strong> acordam em proteger informações sensíveis referentes ao projeto: [P_OBJETO]." },
+                    { t: "2. PENALIDADE", c: "O vazamento de informações sujeitará a parte infratora ao pagamento de multa de <strong>[P_VALOR]</strong>." },
+                    { t: "3. VIGÊNCIA", c: "O dever de sigilo perdurará pelo prazo de <strong>[P_PRAZO]</strong>." }
+                ]
+            }
+        };
+
+        // --- 3. RENDERIZAÇÃO ---
+
+        function renderTemplate(modelKey) {
+            const model = models[modelKey];
+            const container = document.getElementById('documentBody');
+            
+            let html = `
+                <div class="text-center mb-16 pt-8">
+                    <h1 class="text-xl font-bold uppercase tracking-widest border-b border-gray-900 inline-block pb-2">${model.title}</h1>
+                </div>
+            `;
+
+            model.clauses.forEach(clause => {
+                html += `
+                    <div class="mb-8 avoid-break">
+                        <h3 class="font-bold text-sm mb-2 uppercase text-gray-700">${clause.t}</h3>
+                        <p>${clause.c}</p>
+                    </div>
+                `;
+            });
+
+            // Rodapé de Assinatura Atualizado
+            html += `
+                <div class="mt-24 pt-8 avoid-break">
+                    <p class="text-right mb-16 italic text-gray-600 city-date-line">${getCurrentDateExtended()}.</p>
+                    
+                    <div class="grid grid-cols-2 gap-16 mt-12">
+                        <div class="text-center">
+                            <div class="border-t border-black w-full pt-2"></div>
+                            <span class="font-bold block text-sm uppercase tag-contratante-name">NOME CONTRATANTE</span>
+                            <span class="text-xs text-gray-500 block">CONTRATANTE</span>
+                            <span class="text-xs text-gray-500 block tag-doc-contratante">CPF/CNPJ...</span>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="border-t border-black w-full pt-2"></div>
+                            <span class="font-bold block text-sm uppercase tag-contratado-name">NOME CONTRATADO</span>
+                            <span class="text-xs text-gray-500 block">CONTRATADO</span>
+                            <span class="text-xs text-gray-500 block tag-doc-contratado">CPF/CNPJ...</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function updateContract() {
+            // Captura Dados
+            const data = {
+                '[P_CONTRATANTE]': document.getElementById('input_contratante').value || "____________",
+                '[P_DOC_CONTRATANTE]': document.getElementById('input_doc_contratante').value || "____________",
+                '[P_CONTRATADO]': document.getElementById('input_contratado').value || "____________",
+                '[P_DOC_CONTRATADO]': document.getElementById('input_doc_contratado').value || "____________",
+                '[P_OBJETO]': document.getElementById('input_objeto').value || "____________",
+                '[P_VALOR]': document.getElementById('input_valor').value || "____________",
+                '[P_PRAZO]': document.getElementById('input_prazo').value || "____________"
+            };
+
+            const currentModelKey = document.getElementById('modelSelector').value;
+            renderTemplate(currentModelKey);
+
+            const container = document.getElementById('documentBody');
+            let content = container.innerHTML;
+
+            // Substituição no Texto (Highlight suave para indicar variáveis)
+            for (const [key, value] of Object.entries(data)) {
+                // Remove R$ extras se o template já tiver (apenas precaução)
+                content = content.split(key).join(`<span class="font-semibold text-gray-900">${value}</span>`);
+            }
+            container.innerHTML = content;
+
+            // Atualização Específica das Assinaturas (Sem Span de formatação)
+            const elCte = document.getElementById('input_contratante').value;
+            const elCtd = document.getElementById('input_contratado').value;
+            const elDocCte = document.getElementById('input_doc_contratante').value;
+            const elDocCtd = document.getElementById('input_doc_contratado').value;
+
+            if(elCte) document.querySelector('.tag-contratante-name').innerText = elCte;
+            if(elCtd) document.querySelector('.tag-contratado-name').innerText = elCtd;
+            if(elDocCte) document.querySelector('.tag-doc-contratante').innerText = elDocCte;
+            if(elDocCtd) document.querySelector('.tag-doc-contratado').innerText = elDocCtd;
+        }
+
+        function loadModel() { updateContract(); }
+
+        function generatePDF() {
+            const element = document.getElementById('contractContent');
+            window.scrollTo(0, 0);
+
+            const opt = {
+                margin: [20, 20, 20, 20],
+                filename: 'Contrato_LegalForge.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, scrollY: 0, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            const btn = document.querySelector('button[onclick="generatePDF()"]');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gerando...';
+            btn.disabled = true;
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            });
+        }
+
+        // Init
+        window.onload = loadModel;
+    </script>
+</body>
+</html>
